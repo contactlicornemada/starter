@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b18">
+<title>Marketing Starter - 7 Jours pour Lancer ou Relancer votre Activité</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<noscript><style>#intro{display:none!important}.reveal{opacity:1!important;transform:none!important}.wipe{clip-path:none!important}body.locked{overflow:auto!important}.sticky{transform:none!important}</style></noscript>
+<style>
+/* =====================================================================
+   VARIABLES — modifier les couleurs ici
+   ===================================================================== */
+:root{
+  --ink:#080b18;        /* nuit profonde */
+  --night:#0f1430;
+  --deep:#161c3d;
+  --gold:#e0bb72;       /* or champagne */
+  --gold-2:#f6e0a8;
+  --ivory:#f5eddc;
+  --muted:#a9adc4;
+  --rose:#f2a6a6;       /* alerte douce (non recommandé / fin d'offre) */
+  --wa:#25D366;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --script:'Caveat','Segoe Script','Bradley Hand',cursive;
+  --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ivory);background:var(--ink);line-height:1.65;overflow-x:clip;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+body.locked{overflow:hidden;height:100svh}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.12;letter-spacing:-.01em}
+
+/* ---------- Fond : étoiles + aube qui monte avec le scroll ---------- */
+.stars{position:fixed;inset:0;z-index:-2;opacity:.55;
+  background-image:
+   radial-gradient(1.2px 1.2px at 12% 18%,#fff9 50%,transparent 51%),
+   radial-gradient(1px 1px at 78% 8%,#fff8 50%,transparent 51%),
+   radial-gradient(1.4px 1.4px at 44% 36%,#f6e0a8aa 50%,transparent 51%),
+   radial-gradient(1px 1px at 90% 52%,#fff7 50%,transparent 51%),
+   radial-gradient(1.2px 1.2px at 22% 70%,#fff8 50%,transparent 51%),
+   radial-gradient(1px 1px at 62% 88%,#f6e0a8aa 50%,transparent 51%);
+  background-size:340px 340px}
+.dawn{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--dawn,0);
+  background:radial-gradient(130% 55% at 50% 112%,rgba(255,176,128,.55),rgba(196,122,196,.28) 42%,transparent 72%)}
+#dust{position:fixed;inset:0;z-index:60;pointer-events:none;width:100%;height:100%}
+
+.wrap{width:100%;max-width:640px;margin:0 auto;padding:0 1.25rem}
+
+/* =====================================================================
+   MUSIQUE
+   ===================================================================== */
+.music{position:fixed;z-index:70;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:46px;height:46px;border-radius:50%;
+  border:1px solid #e0bb7266;background:#0f1430cc;backdrop-filter:blur(8px);display:grid;place-items:center;gap:0;
+  opacity:0;pointer-events:none;transition:opacity .8s}
+body.opened .music:not([hidden]){opacity:1;pointer-events:auto}
+.music .bars{display:flex;gap:3px;align-items:flex-end;height:16px}
+.music .bars i{width:3px;height:5px;background:var(--gold);border-radius:2px}
+.music.playing .bars i{animation:eq 1s ease-in-out infinite}
+.music.playing .bars i:nth-child(2){animation-delay:.2s}.music.playing .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.music .off{position:absolute;width:26px;height:2px;background:var(--gold);transform:rotate(-45deg);border-radius:2px}
+.music.playing .off{display:none}
+
+/* =====================================================================
+   HÉROS — le 7 en filigrane, titre révélé de gauche à droite
+   ===================================================================== */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:5.5rem 1.25rem 7rem}
+.hero-seven{position:absolute;top:46%;left:50%;font-family:var(--serif);font-weight:700;font-size:min(92vw,560px);line-height:1;
+  color:transparent;-webkit-text-stroke:1px rgba(224,187,114,.3);user-select:none;pointer-events:none;
+  transform:translate(-50%,calc(-50% + var(--py,0px)))}
+.hero-in{position:relative}
+.hero h1{font-size:clamp(2.7rem,15.5vw,5.2rem);font-weight:700;line-height:1;letter-spacing:-.02em}
+.wipe{display:block;padding:.04em .08em;clip-path:inset(0 100% 0 0)}
+body.opened .wipe{animation:wipe 1.25s cubic-bezier(.7,0,.2,1) forwards;animation-delay:calc(1s + var(--d,0)*1s)}
+@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+.gold-line{display:block;height:2px;width:min(60%,260px);margin:1.4rem auto 1.2rem;transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg,transparent,var(--gold),var(--gold-2),var(--gold),transparent)}
+body.opened .gold-line{animation:line 1.1s var(--ease) 2.2s forwards}
+@keyframes line{to{transform:scaleX(1)}}
+.hero-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,4.8vw,1.5rem);max-width:22ch;margin:0 auto;color:var(--ivory);opacity:0}
+body.opened .hero-sub{animation:fadeUp 1s var(--ease) 2.6s forwards}
+.price-pill{display:inline-flex;margin-top:1.8rem;padding:.8rem 1.4rem;border-radius:999px;font-weight:700;font-size:1.02rem;color:#3a2a08;
+  background:linear-gradient(110deg,var(--gold-2),var(--gold) 55%,#c99a45);box-shadow:0 10px 30px -10px #e0bb72aa;opacity:0}
+body.opened .price-pill{animation:fadeUp 1s var(--ease) 3s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;bottom:1.6rem;left:50%;width:1px;height:54px;background:linear-gradient(var(--gold),transparent);opacity:0}
+.scroll-cue::after{content:"";position:absolute;left:-3px;top:0;width:7px;height:7px;border-radius:50%;background:var(--gold-2);animation:drip 2.2s ease-in-out infinite}
+body.opened .scroll-cue{opacity:1;transition:opacity 1s 2.1s}
+@keyframes drip{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(48px);opacity:0}}
+
+/* ---------- Bande de mots qui défile avec le scroll ---------- */
+.band{overflow:hidden;padding:1.1rem 0;border-block:1px solid #e0bb7230;background:linear-gradient(90deg,#0f143000,#161c3d88,#0f143000)}
+.band-row{display:flex;width:max-content;gap:2.2rem;font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,7vw,2.2rem);white-space:nowrap;will-change:transform;color:var(--gold-2)}
+.band-row+.band-row{margin-top:.2rem;color:transparent;-webkit-text-stroke:1px #e0bb72aa}
+.band-row span{display:flex;align-items:center;gap:2.2rem}
+.band-row span::after{content:"";width:9px;height:9px;background:var(--gold);transform:rotate(45deg);flex:none}
+.band-row:first-child{margin-left:-1100px}.band-row+.band-row{margin-left:-2300px}
+
+/* =====================================================================
+   PROGRAMME — parcours en S
+   ===================================================================== */
+.programme{padding:5rem 0 2rem}
+.sec-head{margin-bottom:3.2rem}
+.sec-head h2{font-size:clamp(2.1rem,10vw,3.1rem);font-weight:700}
+.sec-head h2::after{content:"";display:block;width:64px;height:2px;margin-top:1rem;background:var(--gold)}
+.sec-head p{margin-top:1rem;color:var(--muted);max-width:34ch}
+.journey{position:relative}
+.s-path{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:5}
+.chapter{position:relative;margin-bottom:5.5rem}
+.chapter:last-child{margin-bottom:1rem}
+.node{position:absolute;top:50%;left:2px;width:34px;height:34px;margin-top:-17px;border-radius:50%;z-index:20;display:grid;place-items:center;
+  font:700 .9rem var(--serif);color:var(--muted);background:var(--night);border:1px solid #e0bb7255;transition:all .6s var(--ease)}
+.chapter[data-side="r"] .node{left:auto;right:2px}
+.node.lit{background:var(--gold);color:#3a2a08;border-color:var(--gold-2);box-shadow:0 0 0 6px #e0bb7222,0 0 22px #e0bb7288}
+.card{position:relative;margin-left:48px;border:1px solid #e0bb7230;border-radius:18px 6px 18px 6px;background:linear-gradient(170deg,#161c3df2,#0f1430f2);box-shadow:0 30px 50px -30px #000}
+.chapter[data-side="r"] .card{margin-left:0;margin-right:48px;border-radius:6px 18px 6px 18px}
+.media{position:relative;margin:-18px 12px 0 -12px;aspect-ratio:16/10;overflow:hidden;border-radius:4px;transform:rotate(-1.6deg);
+  border:6px solid var(--ivory);box-shadow:0 14px 30px -10px #000c;background:linear-gradient(135deg,#232c63,#3b2f63 55%,#6a4a6a)}
+.chapter[data-side="r"] .media{margin:-18px -12px 0 12px;transform:rotate(1.4deg)}
+.media .ph{position:absolute;inset:0;display:grid;place-items:center;font:700 5.5rem/1 var(--serif);color:transparent;-webkit-text-stroke:1.2px #f6e0a8bb}
+.media .ph::after{content:"";position:absolute;right:14%;top:18%;width:26px;height:26px;background:var(--gold-2);opacity:.9;
+  clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.card-body{padding:1.4rem 1.25rem 1.5rem}
+.day-tag{font-family:var(--script);font-size:1.5rem;color:var(--gold);line-height:1;margin-bottom:.35rem}
+.card h3{font-size:clamp(1.3rem,5.6vw,1.65rem);margin-bottom:1rem}
+.card ul{list-style:none;display:grid;gap:.75rem}
+.card li{position:relative;padding-left:1.4rem;font-size:.93rem;color:#dcd8e6}
+.card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+
+/* révélations */
+.reveal{opacity:1;transform:none}
+.chapter.reveal,.chapter[data-side="r"].reveal,.reveal.up{transform:none}
+.reveal.in{opacity:1;transform:none}
+.card li{opacity:1;transform:none;transition:none}
+.chapter.in li{opacity:1;transform:none}
+
+/* marqueur */
+#marker{filter:drop-shadow(0 0 7px #f6e0a8) drop-shadow(0 0 15px #e0bb72);transform-origin:center;will-change:transform;z-index:30}
+
+/* =====================================================================
+   INVESTISSEMENT
+   ===================================================================== */
+.invest{padding:5rem 0 3rem}
+.tiers{display:grid;gap:1.6rem}
+.tier{position:relative;border-radius:14px;padding:1.4rem 1.4rem 1.5rem}
+.tier h3{font-size:1.25rem;margin-bottom:.4rem}
+.tier .val{font-family:var(--serif);font-weight:700;font-size:1.7rem;color:var(--gold-2)}
+.tier p{color:var(--muted);font-size:.95rem}
+.tier-room{border:1px dashed #a9adc455;opacity:.55;filter:grayscale(.7);transform:rotate(-1.4deg);margin-right:12%}
+.tier-room .val{text-decoration:line-through;color:var(--muted)}
+.not-rec{display:block;margin-top:.45rem;color:var(--muted);font-style:italic;font-size:.9rem}
+.tier-online{border:1px solid #e0bb7240;background:#161c3d;transform:rotate(.8deg);margin-left:8%}
+.tier-best{margin-top:.6rem;padding:2rem 1.5rem 1.6rem;text-align:center;border:2px solid transparent;
+  background:linear-gradient(var(--night),var(--night)) padding-box,linear-gradient(135deg,var(--gold-2),var(--gold) 40%,#b78a3c 70%,var(--gold-2)) border-box;
+  box-shadow:0 0 0 1px #e0bb7222,0 30px 70px -26px #e0bb7266}
+.badge{position:absolute;top:-14px;right:-8px;padding:.35rem .9rem;border-radius:999px;font-weight:700;font-size:.82rem;color:#3a2a08;
+  background:linear-gradient(110deg,var(--gold-2),var(--gold));transform:rotate(5deg);box-shadow:0 6px 16px -6px #000}
+.tier-best .val{font-size:clamp(2.3rem,12vw,3.2rem);display:block;margin:.3rem 0 .1rem;color:var(--ivory)}
+.old{text-decoration:line-through;color:var(--muted)}
+.tier-best strong{display:block;margin-top:.7rem;font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.15rem;color:var(--gold-2)}
+.cd-toggle{margin-top:1.4rem;width:100%;padding:.95rem 1rem;border-radius:12px;border:1px solid #e0bb7266;background:#e0bb7214;font-weight:700;font-size:.95rem;
+  display:flex;align-items:center;justify-content:center;gap:.6rem;transition:background .3s}
+.cd-toggle:hover{background:#e0bb7226}
+.cd-toggle .chev{width:9px;height:9px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);transition:transform .4s}
+.cd-toggle[aria-expanded="true"] .chev{transform:rotate(-135deg)}
+.cd-toggle:not([aria-expanded="true"]){animation:nudge 2.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 #e0bb7255}60%{box-shadow:0 0 0 12px #e0bb7200}}
+.cd-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.cd-panel.open{grid-template-rows:1fr}
+.cd-inner{overflow:hidden}
+.cd-title{margin-top:1.3rem;font-size:.95rem;color:var(--muted)}
+.cd-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-top:.8rem}
+.tile{padding:.8rem .2rem .6rem;border-radius:10px;background:linear-gradient(180deg,#1b2350,#0f1430);border:1px solid #e0bb7233;transform:scale(.8);opacity:0;transition:transform .6s var(--ease),opacity .5s}
+.cd-panel.open .tile{transform:none;opacity:1}
+.cd-panel.open .tile:nth-child(2){transition-delay:.1s}.cd-panel.open .tile:nth-child(3){transition-delay:.2s}.cd-panel.open .tile:nth-child(4){transition-delay:.3s}
+.tile b{display:block;font-family:var(--serif);font-size:clamp(1.5rem,8vw,2.1rem);line-height:1;color:var(--gold-2);font-variant-numeric:tabular-nums}
+.tile b.tick{animation:tick .35s ease}
+@keyframes tick{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
+.tile small{font-size:.72rem;color:var(--muted)}
+.cd-msg{margin-top:.9rem;font-weight:700;color:var(--rose)}
+
+/* =====================================================================
+   FAQ
+   ===================================================================== */
+.faq{padding:4rem 0 2rem}
+.faq-list{border-top:1px solid #e0bb7233}
+.faq-item{border-bottom:1px solid #e0bb7233}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.15rem .2rem;border:0;background:none;text-align:left;font-family:var(--serif);font-weight:600;font-size:1.08rem;line-height:1.3}
+.plus{position:relative;flex:none;width:30px;height:30px;border-radius:50%;border:1px solid #e0bb7266;transition:transform .45s var(--ease),background .3s}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.6px;background:var(--gold);transform:translate(-50%,-50%)}
+.plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq-item.open .plus{transform:rotate(135deg);background:#e0bb7222}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a>div{overflow:hidden}
+.faq-a p{padding:0 .2rem 1.3rem;color:#cfcbdc;font-size:.95rem;max-width:56ch}
+
+/* =====================================================================
+   CLÔTURE + CTA
+   ===================================================================== */
+.finale{padding:4rem 0 3rem;text-align:center}
+.finale h2{font-size:clamp(1.8rem,8vw,2.5rem);font-weight:600;font-style:italic;max-width:16ch;margin:0 auto 1.6rem}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;text-decoration:none;color:#fff;font-weight:700;font-size:1.05rem;
+  padding:1rem 1.8rem;border-radius:999px;background:var(--wa);box-shadow:0 10px 30px -8px #25d36688;transition:transform .3s var(--ease),box-shadow .3s}
+.cta:hover{transform:translateY(-2px)}
+.cta svg{width:24px;height:24px;fill:#fff;flex:none}
+.finale .cta{animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #25d366bb}70%{box-shadow:0 0 0 16px #25d36600}100%{box-shadow:0 0 0 0 #25d36600}}
+footer{padding:1.6rem 1rem 2rem;text-align:center;font-size:.8rem;color:var(--muted);border-top:1px solid #e0bb7222}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:55;padding:.7rem 1.1rem calc(.7rem + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;
+  background:linear-gradient(180deg,#080b1800,#080b18ee 38%);transform:translateY(120%);transition:transform .9s var(--ease) .5s}
+body.opened .sticky{transform:none}
+.sticky .cta{width:100%;max-width:520px}
+
+/* =====================================================================
+   LIGHTBOX
+   ===================================================================== */
+#lb{position:fixed;inset:0;z-index:90;display:none;place-items:center;background:#05070fee;padding:1rem}
+#lb.show{display:grid;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}}
+#lb img{max-width:100%;max-height:78vh;border:6px solid var(--ivory);border-radius:4px}
+#lb button{position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid #e0bb7288;background:#0f1430cc;font-size:1.4rem;color:var(--gold-2)}
+#lbPrev{left:10px;top:50%}#lbNext{right:10px;top:50%}#lbClose{right:10px;top:calc(10px + env(safe-area-inset-top,0px))}
+#lbCap{position:absolute;bottom:1.4rem;left:0;right:0;text-align:center;font-family:var(--script);font-size:1.4rem;color:var(--gold-2)}
+
+@media (min-width:700px){.wrap{max-width:680px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  html{scroll-behavior:auto}
+  .reveal,.card li{opacity:1!important;transform:none!important}
+  .wipe{clip-path:none}.hero-sub,.price-pill{opacity:1}.gold-line{transform:none}
+}
+</style>
+<style>
+/* Pause de 1 s avant le démarrage de l'animation d'ouverture */
+</style>
+</head>
+<body class="opened">
+<div class="stars" aria-hidden="true"></div>
+<div class="dawn" aria-hidden="true"></div>
+<canvas id="dust" aria-hidden="true"></canvas>
+
+<!-- Musique : place music.mp3 à côté de index.html. Le bouton n'apparaît que si le fichier existe. -->
+<audio id="bgm" src="music.mp3" loop preload="metadata"></audio>
+<button class="music" id="music" hidden aria-label="Activer ou couper la musique" aria-pressed="false">
+  <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="off" aria-hidden="true"></span>
+</button>
+
+<main>
+  <!-- ===================== HÉROS ===================== -->
+  <header class="hero" id="top">
+    <div class="hero-seven" id="seven" aria-hidden="true">7</div>
+    <div class="hero-in">
+      <h1><span class="wipe" style="--d:.1">Marketing</span><span class="wipe" style="--d:.55">Starter</span></h1>
+      <span class="gold-line" aria-hidden="true"></span>
+      <p class="hero-sub">7 Jours pour relancer ou lancer votre activité en ligne</p>
+      <div class="price-pill">Offre Early Bird : 247 000 Ar</div>
+    </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
+  </header>
+
+  <!-- ===================== BANDE ===================== -->
+  <div class="band" id="band" aria-hidden="true">
+    <div class="band-row" id="row1"><span>Marketing disruptif</span><span>Présence en ligne</span><span>Intelligence artificielle</span><span>Vidéos lucratives</span><span>Vente en ligne</span><span>Meta Ads</span><span>Bâtir son équipe</span><span>Marketing disruptif</span><span>Présence en ligne</span><span>Intelligence artificielle</span><span>Vidéos lucratives</span><span>Vente en ligne</span><span>Meta Ads</span><span>Bâtir son équipe</span></div>
+    <div class="band-row" id="row2"><span>Bâtir son équipe</span><span>Meta Ads</span><span>Vente en ligne</span><span>Vidéos lucratives</span><span>Intelligence artificielle</span><span>Présence en ligne</span><span>Marketing disruptif</span><span>Bâtir son équipe</span><span>Meta Ads</span><span>Vente en ligne</span><span>Vidéos lucratives</span><span>Intelligence artificielle</span><span>Présence en ligne</span><span>Marketing disruptif</span></div>
+  </div>
+
+  <!-- ===================== PROGRAMME ===================== -->
+  <section class="programme" id="programme">
+    <div class="wrap">
+      <div class="sec-head reveal up">
+        <h2>Le Programme</h2>
+        <p>Voici ce que vous allez maîtriser durant ces 7 jours :</p>
+      </div>
+
+      <div class="journey" id="journey">
+        <svg class="s-path" id="sPath" aria-hidden="true">
+          <path id="pBase" fill="none" stroke="#e0bb72" stroke-opacity=".22" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+          <path id="pProg" fill="none" stroke="#e0bb72" stroke-width="2.4" stroke-linecap="round"/>
+          <g id="marker"><path d="M0,-13 C1.8,-3.6 3.6,-1.8 13,0 C3.6,1.8 1.8,3.6 0,13 C-1.8,3.6 -3.6,1.8 -13,0 C-3.6,-1.8 -1.8,-3.6 0,-13Z" fill="#f6e0a8"/></g>
+        </svg>
+
+        <article class="chapter reveal" data-side="l">
+          <span class="node">1</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">1</span><img src="jour1.jpg" alt="Jour 1 - Marketing Disruptif" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 1</p>
+              <h3>Le Principe du Marketing Disruptif</h3>
+              <ul>
+                <li style="--i:0">Définir votre style de marketing pour être unique.</li>
+                <li style="--i:1">Les 10 commandements cachés du marketing pour devenir une marque respectée sur le marché (Technique inspirée des géants du marketing des États-Unis).</li>
+                <li style="--i:2">La stratégie pour faire de votre offre une solution idéale et évidente pour vos clients.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="r">
+          <span class="node">2</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">2</span><img src="jour2.jpg" alt="Jour 2 - Présence en ligne" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 2</p>
+              <h3>Lancer votre présence en ligne</h3>
+              <ul>
+                <li style="--i:0">Les 3 filtres avant de créer du contenu (L'objectif n'est pas d'accumuler des likes, mais de générer du chiffre d'affaires).</li>
+                <li style="--i:1">Choisir sa ligne éditoriale et maîtriser tous les médias (Facebook, Instagram, TikTok, LinkedIn...).</li>
+                <li style="--i:2">Comment créer du contenu 10X plus vite que vos concurrents et les dépasser de très loin.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="l">
+          <span class="node">3</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">3</span><img src="jour3.jpg" alt="Jour 3 - Intelligence Artificielle" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 3</p>
+              <h3>Intelligence Artificielle</h3>
+              <ul>
+                <li style="--i:0">Les divers types d'IA, pourquoi et comment les utiliser.</li>
+                <li style="--i:1">L'IA et ses dangers (97 % des visuels créés par IA ne sont pas du tout attirants).</li>
+                <li style="--i:2">La stratégie « Z », le principe utilisé par les experts en communication pour attirer l'attention avec l'IA.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="r">
+          <span class="node">4</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">4</span><img src="jour4.jpg" alt="Jour 4 - Vidéos Lucratives" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 4</p>
+              <h3>Création de Vidéos Lucratives</h3>
+              <ul>
+                <li style="--i:0">La stratégie P.S.C. pour créer une vidéo qui donne envie d'acheter (Non, on ne parle pas de beauté ni de qualité de montage).</li>
+                <li style="--i:1">Se lancer dans la création de vidéos très lucratives (pas besoin de studio).</li>
+                <li style="--i:2">Scripting : la règle des 3/40/Toboggan glissant (inspirée des meilleurs créateurs de publicité de la planète) pour créer des offres irrésistibles en vidéo et vendre sur-le-champ.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="l">
+          <span class="node">5</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">5</span><img src="jour5.jpg" alt="Jour 5 - Vente en ligne" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 5</p>
+              <h3>L'Art de la Vente en Ligne</h3>
+              <ul>
+                <li style="--i:0">La différence entre la stratégie de la « vente en ligne » et de la « vente en présentiel », et que faire (Oui, vendre en ligne demande plus de performance).</li>
+                <li style="--i:1">Les 11 secrets pour créer des offres irrésistibles et inspirer confiance aux clients.</li>
+                <li style="--i:2">Comment créer une expérience client inoubliable, être différent des concurrents et fidéliser ses clients en ligne.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="r">
+          <span class="node">6</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">6</span><img src="jour6.jpg" alt="Jour 6 - Meta Ads" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 6</p>
+              <h3>Décupler vos revenus avec Meta Ads</h3>
+              <ul>
+                <li style="--i:0">L'art d'utiliser le « BOOST » pour décupler votre succès.</li>
+                <li style="--i:1">La stratégie B.T.S. pour être rentable sur Meta et ne pas perdre d'argent.</li>
+                <li style="--i:2">La triade F.T.C. pour scaler sa performance publicitaire.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter reveal" data-side="l">
+          <span class="node">7</span>
+          <div class="card">
+            <div class="media"><span class="ph" aria-hidden="true">7</span><img src="jour7.jpg" alt="Jour 7 - Bâtir son équipe" loading="lazy" onerror="this.remove()"></div>
+            <div class="card-body">
+              <p class="day-tag">Jour 7</p>
+              <h3>Bâtir son équipe, devenir invincible</h3>
+              <ul>
+                <li style="--i:0">Le principe d'un « e-commerce » qui tourne sans vous.</li>
+                <li style="--i:1">Comment recruter un bon Community Manager et un bon commercial (que demander, mener un entretien, test, profil...).</li>
+                <li style="--i:2">Les 10 croyances limitantes qui vous empêchent de déléguer, qui vous rendent prisonnier de l'entreprise, et comment les dépasser.</li>
+                <li style="--i:3">Stratégie de délégation et de motivation d'équipe.</li>
+                <li style="--i:4">Bilan et conclusion.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INVESTISSEMENT ===================== -->
+  <section class="invest" id="invest">
+    <div class="wrap">
+      <div class="sec-head reveal up">
+        <h2>Investissement</h2>
+        <p>Choisissez la formule qui vous convient :</p>
+      </div>
+      <div class="tiers">
+        <div class="tier tier-room reveal up">
+          <h3>Formule en Salle</h3>
+          <div class="val">800 000 Ar</div>
+          <p>Formation en présentiel</p>
+          <span class="not-rec">Équivalent d'une formation en présentiel.</span>
+        </div>
+        <div class="tier tier-online reveal up">
+          <h3>Formule en Ligne</h3>
+          <div class="val">300 000 Ar</div>
+          <p>Accès pendant 4 mois</p>
+        </div>
+        <div class="tier tier-best reveal up">
+          <span class="badge">Early Bird</span>
+          <h3>Offre Spéciale</h3>
+          <span class="val">247 000 Ar</span>
+          <p class="old">300 000 Ar</p>
+          <strong>La meilleure offre pour démarrer !</strong>
+
+          <button class="cd-toggle" id="cdToggle" aria-expanded="false" aria-controls="cdPanel">
+            <span id="cdToggleLabel">Découvrir la fin de l'offre</span><i class="chev" aria-hidden="true"></i>
+          </button>
+          <div class="cd-panel" id="cdPanel">
+            <div class="cd-inner">
+              <p class="cd-title">Fin de l'offre dans :</p>
+              <div class="cd-tiles" id="countdown" role="timer" aria-label="Temps restant avant la fin de l'offre">
+                <div class="tile"><b id="cdD">0</b><small>jours</small></div>
+                <div class="tile"><b id="cdH">00</b><small>heures</small></div>
+                <div class="tile"><b id="cdM">00</b><small>minutes</small></div>
+                <div class="tile"><b id="cdS">00</b><small>secondes</small></div>
+              </div>
+              <p class="cd-msg" id="cdMsg" hidden>OFFRE TERMINÉE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal up"><h2>Foire Aux Questions</h2></div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Est-ce en direct ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Les formations sont préenregistrées. Vous pouvez les regarder n'importe où et n'importe quand.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Y a-t-il une rediffusion ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Vous avez juste besoin d'être dans le groupe Facebook et vous pouvez suivre la formation quand vous le souhaitez.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Quelle est la durée ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>1 heure par jour durant 7 jours.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Est-ce que cela convient aux débutants ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Oui. Venez avec une idée d'entreprise, et nous pouvons vous aider.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Est-ce que cela convient aux expérimentés ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Le digital évolue très vite. Oui, nous vous livrons les dernières mises à jour.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Sur quelle plateforme se déroule la formation ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Afin de permettre au plus grand nombre d'entrepreneurs de scaler leurs entreprises, nous avons décidé d'utiliser un groupe Facebook pour la diffusion.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Zéro compétence en IA &amp; Boost ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>On vous aide avec l'intervention spécifique de notre Marketing Senior pour apprendre comment les utiliser.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Quels secteurs d'activités sont concernés ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Produits, services, logiciels, vente de produits importés, consultance, ou autre... Si vos clients sont sur les réseaux sociaux, et que les lois ne vous empêchent pas de faire de la publicité, Marketing Starter est fait pour vous.</p></div></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Différence avec une simple formation sur la vente en ligne ?</span><i class="plus" aria-hidden="true"></i></button><div class="faq-a"><div><p>Licorne aide les entrepreneurs à scaler leurs entreprises. On pousse votre vente en ligne à devenir une entreprise rentable et scalable sur le long terme.</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLÔTURE ===================== -->
+  <section class="finale">
+    <div class="wrap">
+      <h2 class="reveal up">La meilleure offre pour démarrer !</h2>
+      <a class="cta reveal up" id="whatsappMain" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+        S'inscrire maintenant
+      </a>
+    </div>
+  </section>
+
+  <footer><p>&copy; 2027 Marketing Starter. Tous droits réservés.</p></footer>
+</main>
+
+<!-- Bandeau CTA fixe -->
+<div class="sticky">
+  <a class="cta" id="whatsappBtn" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    S'inscrire maintenant
+  </a>
+</div>
+
+<!-- Lightbox (actif uniquement pour les photos jourN.jpg présentes) -->
+<div id="lb" role="dialog" aria-label="Photo agrandie">
+  <button id="lbClose" aria-label="Fermer">&times;</button>
+  <button id="lbPrev" aria-label="Photo précédente">&#8249;</button>
+  <img id="lbImg" alt="">
+  <button id="lbNext" aria-label="Photo suivante">&#8250;</button>
+  <p id="lbCap"></p>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — modifier ici : WhatsApp, message, date de fin d'offre
+   ===================================================================== */
+const CONFIG = {
+  phone: "261343212369",   // format international sans le +
+  message: "Bonjour, je souhaite m'inscrire au Marketing Starter et profiter de l'offre Early Bird à 247.000 Ar. Je suis dans le secteur du [remplacez par votre secteur]",
+  // Date de fin d'offre FIXE, identique pour tous les visiteurs. Exemple : "2026-10-20T23:59:59+03:00"
+  // Laissée vide : chaque navigateur crée sa propre échéance persistante.
+  endDate: "",
+  fallbackMs: (2*24*3600 + 12*3600 + 13*60 + 10) * 1000,
+  countdownStorageKey: "marketing_starter_countdown_end_v1"
+};
+
+(function(){
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mem={};
+const store=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){if(v===undefined)return mem[k];mem[k]=v}};
+
+/* ---------- WhatsApp ---------- */
+const wa = `https://wa.me/${CONFIG.phone}?text=${encodeURIComponent(CONFIG.message)}`;
+$('#whatsappBtn').href = wa; $('#whatsappMain').href = wa;
+
+/* ---------- Particules (poussière dorée) ---------- */
+const cv=$('#dust'), cx=cv.getContext('2d');
+let W=0,H=0,dpr=1; const amb=[], burst=[];
+const sprite=document.createElement('canvas'); sprite.width=sprite.height=32;
+(function(){const g=sprite.getContext('2d'),r=g.createRadialGradient(16,16,0,16,16,16);
+  r.addColorStop(0,'rgba(255,240,200,1)');r.addColorStop(.35,'rgba(246,224,168,.55)');r.addColorStop(1,'rgba(224,187,114,0)');
+  g.fillStyle=r;g.fillRect(0,0,32,32)})();
+function fit(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+  const n=W<500?24:42; while(amb.length<n)amb.push(mk(true)); amb.length=n}
+function mk(rand){return{x:Math.random()*W,y:rand?Math.random()*H:H+10,s:3+Math.random()*9,vy:.12+Math.random()*.35,ph:Math.random()*6.28,a:.25+Math.random()*.5}}
+function boom(x,y,n){if(reduce)return;for(let i=0;i<n;i++){const a=Math.random()*6.283,v=1.5+Math.random()*4.5;burst.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1.5,s:5+Math.random()*10,l:1})}}
+let last=0;
+function frame(t){requestAnimationFrame(frame);if(document.hidden)return;const dt=Math.min((t-last)/16.7||1,3);last=t;
+  cx.clearRect(0,0,W,H);
+  for(const p of amb){p.y-=p.vy*dt;p.ph+=.02*dt;p.x+=Math.sin(p.ph)*.25*dt;if(p.y<-12){Object.assign(p,mk(false));p.x=Math.random()*W}
+    cx.globalAlpha=p.a*(.6+.4*Math.sin(p.ph*2));cx.drawImage(sprite,p.x,p.y,p.s*2,p.s*2)}
+  for(let i=burst.length-1;i>=0;i--){const b=burst[i];b.x+=b.vx*dt;b.y+=b.vy*dt;b.vy+=.07*dt;b.vx*=.985;b.l-=.012*dt;
+    if(b.l<=0){burst.splice(i,1);continue}cx.globalAlpha=Math.max(b.l,0);cx.drawImage(sprite,b.x,b.y,b.s*2,b.s*2)}
+  cx.globalAlpha=1}
+fit(); addEventListener('resize',fit); if(!reduce)requestAnimationFrame(frame);
+
+/* ---------- Musique ---------- */
+const bgm=$('#bgm'), mbtn=$('#music'); bgm.volume=.45;
+const showBtn=()=>{if(!bgm.error)mbtn.hidden=false};
+bgm.addEventListener('loadedmetadata',showBtn); bgm.addEventListener('canplay',showBtn);
+bgm.addEventListener('error',()=>{mbtn.hidden=true});
+bgm.addEventListener('play',()=>{mbtn.classList.add('playing');mbtn.setAttribute('aria-pressed','true')});
+bgm.addEventListener('pause',()=>{mbtn.classList.remove('playing');mbtn.setAttribute('aria-pressed','false')});
+mbtn.addEventListener('click',()=>{if(bgm.paused){bgm.play().catch(()=>{});store('ms_music','on')}else{bgm.pause();store('ms_music','off')}});
+
+/* ---------- Démarrage (plus d'enveloppe) ---------- */
+document.body.classList.remove('locked');document.body.classList.add('opened');
+addEventListener('pointerdown',e=>{if(e.target.closest('#music'))return;if(store('ms_music')!=='off'&&bgm.paused)bgm.play().catch(()=>{})},{once:true});
+
+/* ---------- Défilement automatique vers le Jour 1 après l'animation ---------- */
+function scrollToDay1(){
+  const day1 = document.querySelector('.chapter[data-side="l"]');
+  if(day1){
+    // Attendre la fin de l'animation d'ouverture (le wipe se termine à ~2.5s)
+    // puis défiler en douceur vers le Jour 1
+    setTimeout(()=>{
+      const y = day1.getBoundingClientRect().top + window.scrollY - 80; // -80px de marge pour que le titre reste visible
+      window.scrollTo({top: y, behavior: reduce ? 'auto' : 'smooth'});
+    }, 2800); // 2800ms = fin de l'animation d'ouverture (wipe + fade)
+  }
+}
+// Lancer le défilement après le chargement complet
+if(document.readyState === 'complete'){
+  scrollToDay1();
+}else{
+  addEventListener('load', scrollToDay1);
+}
+
+/* ---------- Révélations ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+$$('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- Parcours en S ---------- */
+const journey=$('#journey'), svg=$('#sPath'), pBase=$('#pBase'), pProg=$('#pProg'), marker=$('#marker');
+const chapters=$$('.chapter'), nodes=$$('.node'); let pts=[], plen=0;
+function buildPath(){
+  const w=journey.offsetWidth,h=journey.offsetHeight; svg.setAttribute('width',w);svg.setAttribute('height',h);svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  pts=chapters.map((c,i)=>({x:c.offsetLeft+nodes[i].offsetLeft+nodes[i].offsetWidth/2,y:c.offsetTop+nodes[i].offsetTop+nodes[i].offsetHeight/2}));
+  let d=`M${pts[0].x},${pts[0].y}`;
+  /*
+    La trajectoire reste ancrée sur les 7 étapes, mais ses poignées
+    rentrent volontairement dans la largeur des cartes : l'étoile
+    traverse donc visuellement les photos au lieu de rester dans
+    la marge extérieure.
+  */
+  for(let i=1;i<pts.length;i++){
+    const a=pts[i-1],b=pts[i];
+    const dy=b.y-a.y;
+    const dir=(i%2===1)?1:-1;
+    const inset=Math.min(w*.28,145);
+    const ax=a.x + dir*inset;
+    const bx=b.x + dir*inset;
+    const k=dy*.30;
+    d+=` C${ax},${a.y+k} ${bx},${b.y-k} ${b.x},${b.y}`;
+  }
+  pBase.setAttribute('d',d);pProg.setAttribute('d',d);plen=pProg.getTotalLength();
+  pProg.style.strokeDasharray=plen;pProg.style.strokeDashoffset=plen;
+}
+function pointAtY(y){let lo=0,hi=plen;for(let i=0;i<14;i++){const m=(lo+hi)/2;pProg.getPointAtLength(m).y<y?lo=m:hi=m}return lo}
+function updatePath(){
+  if(!plen)return;const top=journey.getBoundingClientRect().top;const rel=innerHeight*.6-top;
+  const y=Math.min(Math.max(rel,pts[0].y),pts[pts.length-1].y);
+  const L=pointAtY(y);
+  const p=pProg.getPointAtLength(L);
+  /* L est exactement la longueur visible du fil jaune : l'étoile est donc
+     toujours positionnée à sa pointe, et avance avec elle au scroll. */
+  marker.setAttribute('transform',`translate(${p.x.toFixed(1)},${p.y.toFixed(1)})`);
+  pProg.style.strokeDashoffset=plen-L;
+  nodes.forEach((n,i)=>n.classList.toggle('lit',rel>=pts[i].y-8));
+}
+if('ResizeObserver' in window)new ResizeObserver(buildPath).observe(journey);
+addEventListener('load',buildPath);addEventListener('resize',buildPath);buildPath();
+
+/* ---------- Scroll (rAF) : aube, filigrane, bande ---------- */
+const band=$('#band'), row1=$('#row1'), row2=$('#row2'), seven=$('#seven'), root=document.documentElement;
+let tick=false;
+function update(){tick=false;const y=scrollY,max=Math.max(1,root.scrollHeight-innerHeight);
+  root.style.setProperty('--dawn',Math.min(1,y/max).toFixed(3));
+  seven.style.setProperty('--py',(y*.18).toFixed(1)+'px');
+  const rel=band.getBoundingClientRect().top-innerHeight/2;   // 1re ligne : droite → gauche ; 2e ligne : gauche → droite
+  row1.style.transform=`translate3d(${(rel*.55).toFixed(1)}px,0,0)`;row2.style.transform=`translate3d(${(-rel*.55).toFixed(1)}px,0,0)`;
+  updatePath();
+}
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(update)}},{passive:true});update();
+
+/* ---------- Compte à rebours ---------- */
+let end=CONFIG.endDate?new Date(CONFIG.endDate).getTime():NaN;
+if(isNaN(end)){
+  const key=CONFIG.countdownStorageKey;
+  let s=parseInt(store(key),10);
+  // L'échéance est créée une seule fois et reste dans ce navigateur.
+  // Elle survit aux rechargements, fermetures et réouvertures du navigateur.
+  if(!Number.isFinite(s)){
+    s=Date.now()+CONFIG.fallbackMs;
+    store(key,String(s));
+  }
+  end=s;
+}
+const cd={d:$('#cdD'),h:$('#cdH'),m:$('#cdM'),s:$('#cdS')}, pad=n=>String(n).padStart(2,'0');
+function setV(el,v){if(el.textContent!==v){el.textContent=v;if(!reduce){el.classList.remove('tick');void el.offsetWidth;el.classList.add('tick')}}}
+function tickCd(){
+  const remaining=end-Date.now();
+  const dist=Math.max(0,remaining);
+  setV(cd.d,String(Math.floor(dist/864e5)));
+  setV(cd.h,pad(Math.floor(dist%864e5/36e5)));
+  setV(cd.m,pad(Math.floor(dist%36e5/6e4)));
+  setV(cd.s,pad(Math.floor(dist%6e4/1e3)));
+  if(remaining<=0){$('#cdMsg').hidden=false;clearInterval(cdTimer)}
+}
+const cdTimer=setInterval(tickCd,1000);tickCd();
+const tg=$('#cdToggle'),panel=$('#cdPanel');
+tg.addEventListener('click',()=>{const o=panel.classList.toggle('open');tg.setAttribute('aria-expanded',o);
+  $('#cdToggleLabel').textContent=o?'Masquer le compte à rebours':"Découvrir la fin de l'offre";
+  if(o){const r=tg.getBoundingClientRect();boom(r.left+r.width/2,r.top+10,26);setTimeout(()=>panel.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'}),350)}});
+
+/* ---------- FAQ ---------- */
+$$('.faq-q').forEach(q=>q.addEventListener('click',()=>{const it=q.parentElement,o=it.classList.toggle('open');q.setAttribute('aria-expanded',o)}));
+
+/* ---------- Lightbox ---------- */
+const lb=$('#lb'),lbImg=$('#lbImg'),lbCap=$('#lbCap');let list=[],idx=0;
+const live=()=>$$('.media img').filter(i=>i.isConnected&&i.complete&&i.naturalWidth>0);
+function show(i){list=live();if(!list.length)return;idx=(i+list.length)%list.length;lbImg.src=list[idx].src;lbImg.alt=list[idx].alt;lbCap.textContent=list[idx].alt;lb.classList.add('show')}
+document.addEventListener('click',e=>{const im=e.target.closest('.media img');if(im){show(live().indexOf(im))}});
+$('#lbPrev').onclick=e=>{e.stopPropagation();show(idx-1)};$('#lbNext').onclick=e=>{e.stopPropagation();show(idx+1)};
+lb.addEventListener('click',()=>lb.classList.remove('show'));
+addEventListener('keydown',e=>{if(!lb.classList.contains('show'))return;if(e.key==='Escape')lb.classList.remove('show');if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1)});
+})();
+</script>
+</body>
+</html>
